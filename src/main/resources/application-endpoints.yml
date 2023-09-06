@@ -1,0 +1,11 @@
+#management:
+#  endpoint:
+#    gateway:
+#      enabled: true # default value
+#
+#  endpoints:
+#    web:
+#      exposure:
+#        include:
+#          # https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/#actuator-api
+#         - gateway

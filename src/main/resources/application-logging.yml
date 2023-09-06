@@ -1,0 +1,14 @@
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          gateway: TRACE
+        http:
+          server:
+            reactive: TRACE
+        web:
+          reactive: TRACE
+
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"

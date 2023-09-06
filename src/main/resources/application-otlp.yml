@@ -1,0 +1,9 @@
+management:
+  otlp:
+    metrics:
+      export:
+        url: http://localhost:4318/v1/metrics
+        aggregation-temporality: cumulative
+        step: 10s
+    tracing:
+      endpoint: http://localhost:4318/v1/traces

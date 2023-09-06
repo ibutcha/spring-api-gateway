@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <springProperty scope="context" name="appName" source="spring.application.name" />
+    <springProperty scope="context" name="orgName" source="spring.application.org" />
+
+    <property scope="local" name="payloadFileName" value="${spring.application.home:-.}/logs/app.log" />
+
+    <!-- CONSOLE LOG -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %clr(%-5level) ${appName} %clr(ParentId=%X{parentSpanId:-}, TraceId=%X{traceId:-}, SpanId=%X{spanId:-}) %logger{36} Message=%msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">
+        <http>
+            <url>http://localhost:3100/loki/api/v1/push</url>
+        </http>
+        <format>
+            <label>
+                <pattern>org=${orgName},appName=${appName},host=${HOSTNAME},level=%level</pattern>
+                <readMarkers>true</readMarkers>
+            </label>
+            <message>
+                #[[ <pattern>
+                {
+                "severity": "%level",
+                "service": "${appName:-}",
+                "trace": "%X{traceId:-}",
+                "span": "%X{spanId:-}",
+                "parent": "%X{parentSpanId:-}",
+                "mdcFilterId" : "%X{mdcFilterId}",
+                "exportable": "%X{X-Span-Export:-}",
+                "pid": "${PID:-}",
+                "thread": "%thread",
+                "class": "%logger{40}",
+                "rest": "%message"
+                }
+            </pattern> ]]#
+            </message>
+        </format>
+    </appender>
+
+    <root level="INFO">
+        <!-- <appender-ref ref="FILE" /> -->
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="LOKI" />
+    </root>
+</configuration>

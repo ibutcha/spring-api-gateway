@@ -1,0 +1,17 @@
+spring:
+  cloud:
+    gateway:
+      default-filters:
+#       - SaveSession # TODO: to integrate with spring security
+#       - TokenRelay  # TODO: to integrate with spring security
+        - SecureHeaders
+#        - name: CircuitBreaker
+#          args:
+#            name: FallbackRoute
+#            # See: com.ibutch.apigateway.endpoints.FallbackController
+#            fallbackUri: forward:/fallback
+#            statusCodes:
+#            # This will trigger once target endpoint returns the ff status code below:
+#              - 404
+#              - 500
+#              - 502
