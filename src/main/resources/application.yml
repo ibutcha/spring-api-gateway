@@ -12,3 +12,4 @@ spring:
 #      - endpoints
       - metrics
       - otlp
+      - google
