@@ -1,0 +1,10 @@
+version: '3.0'
+
+services:
+  # Store the ff:
+  #  - user session
+  #  - rate limiter
+  redis:
+    image: 'redis:alpine3.18'
+    ports:
+      - '6379:6379'

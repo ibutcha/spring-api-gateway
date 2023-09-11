@@ -9,7 +9,7 @@ spring:
       - gateway-default-filters
       - routes
       - logging
-#      - endpoints
       - metrics
       - otlp
       - google
+      - docker-compose
