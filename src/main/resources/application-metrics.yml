@@ -14,7 +14,7 @@ management:
           - health
           - metrics
           - loggers
-#          - gateway
+          - gateway
 
   endpoint:
     info:
@@ -22,8 +22,8 @@ management:
     health:
       show-details: always
       enabled: true
-#    gateway:
-#      enabled: true # default value
+    gateway:
+      enabled: true # default value
 
   metrics:
     tags:

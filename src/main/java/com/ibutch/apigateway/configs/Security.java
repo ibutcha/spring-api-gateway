@@ -16,8 +16,10 @@ public class Security {
     SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http
                 .authorizeExchange(authorize ->
-                        authorize
-                            .anyExchange().authenticated())
+                    authorize
+                        .anyExchange()
+                        .authenticated()
+                )
                 .oauth2Login(Customizer.withDefaults())
                 .oauth2Client(Customizer.withDefaults());
         return http.build();
